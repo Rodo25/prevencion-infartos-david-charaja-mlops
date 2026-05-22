@@ -1,0 +1,55 @@
+version: "3.9"
+
+services:
+  mlflow:
+    image: python:3.10-slim
+    container_name: mlflow-prevencion-infartos
+    working_dir: /mlflow
+    command: >
+      sh -c "pip install --no-cache-dir mlflow==2.19.0 &&
+             mlflow server --host 0.0.0.0 --port 5000
+             --backend-store-uri sqlite:///mlflow.db
+             --default-artifact-root /mlflow/artifacts"
+    ports:
+      - "5000:5000"
+    volumes:
+      - mlflow_data:/mlflow
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  trainer:
+    build:
+      context: .
+      dockerfile: Dockerfile.trainer
+    container_name: trainer-prevencion-infartos
+    env_file:
+      - .env.preprod
+    depends_on:
+      mlflow:
+        condition: service_healthy
+    volumes:
+      - ./artifacts:/app/artifacts
+      - ./data:/app/data
+      - ./mlruns:/app/mlruns
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api-prevencion-infartos
+    env_file:
+      - .env.preprod
+    depends_on:
+      trainer:
+        condition: service_completed_successfully
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./artifacts:/app/artifacts
+    restart: unless-stopped
+
+volumes:
+  mlflow_data:

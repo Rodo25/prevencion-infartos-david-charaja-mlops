@@ -1,0 +1,22 @@
+# Dockerfile.trainer — Imagen para entrenamiento y validación
+FROM python:3.10-slim
+
+LABEL description="Trainer: prepara datos, entrena, registra en MLflow y valida"
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY src/ ./src/
+COPY data/ ./data/
+
+RUN mkdir -p artifacts mlruns reportes
+
+CMD python src/01_prepare_data.py && \
+    python src/02_train_model.py && \
+    python src/03_validate_model.py && \
+    echo "✓ Trainer completado exitosamente"
