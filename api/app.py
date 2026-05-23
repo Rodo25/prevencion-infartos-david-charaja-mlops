@@ -10,7 +10,8 @@ from api.predictor import predictor
 from api.schemas import ClienteInput, HealthResponse, PrediccionOutput
 
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()
-logging.basicConfig(level=getattr(logging, LOG_LEVEL), format="%(asctime)s | API | %(levelname)s | %(message)s")
+logging.basicConfig(level=getattr(logging, LOG_LEVEL), 
+                    format="%(asctime)s | API | %(levelname)s | %(message)s")
 log = logging.getLogger(__name__)
 
 
@@ -36,8 +37,10 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], all
 
 @app.get("/", tags=["Info"])
 def root():
-    return {"api": "Prevención de Infartos", "version": "1.0.0", "docs": "/docs", "health": "/health"}
-
+    return {"api": "Prevención de Infartos", 
+            "version": "1.0.0", 
+            "docs": "/docs", 
+            "health": "/health"}
 
 @app.get("/health", response_model=HealthResponse, tags=["Salud"])
 def health():
@@ -50,7 +53,6 @@ def health():
         recall=float(predictor.metricas.get("recall", 0)),
         env=os.getenv("ENV", "dev"),
     )
-
 
 @app.post("/predecir", response_model=PrediccionOutput, tags=["Predicción"])
 def predecir(cliente: ClienteInput):

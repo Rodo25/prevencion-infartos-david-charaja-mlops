@@ -42,7 +42,9 @@ from config import (
     TEST_PATH,
 )
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s | TRAIN | %(message)s", datefmt="%H:%M:%S")
+logging.basicConfig(level=logging.INFO, 
+                    format="%(asctime)s | TRAIN | %(message)s", 
+                    datefmt="%H:%M:%S")
 log = logging.getLogger(__name__)
 
 
@@ -102,12 +104,15 @@ def train() -> dict:
     model = build_pipeline()
 
     def guardar_artifactos(metrics: dict) -> None:
-        report = classification_report(y_test, (model.predict_proba(X_test)[:, 1] >= 0.25).astype(int), zero_division=0)
+        report = classification_report(y_test, 
+                                       (model.predict_proba(X_test)[:, 1] >= 0.25).astype(int), 
+                                       zero_division=0)
         CLASSIFICATION_REPORT_PATH.write_text(report, encoding="utf-8")
         with open(MODEL_PATH, "wb") as f:
             pickle.dump(model, f)
         METRICS_PATH.write_text(json.dumps(metrics, indent=2), encoding="utf-8")
-        FEATURES_PATH.write_text(json.dumps({"features": FEATURES, "target": TARGET}, indent=2), encoding="utf-8")
+        FEATURES_PATH.write_text(json.dumps({"features": FEATURES, "target": TARGET}, indent=2), 
+                                 encoding="utf-8")
 
     if mlflow is None:
         log.warning("MLflow no está instalado; se guardan artefactos locales sin tracking.")

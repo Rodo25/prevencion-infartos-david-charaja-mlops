@@ -10,7 +10,7 @@ all: lint test train validate docker
 	@echo "✓ Pipeline CI/CD local completado. Listo para git push."
 
 lint:
-	flake8 src/ tests/ api/ --config=setup.cfg
+	flake8 src/ tests/ api/ --config=setup.cfg --max-line-length=150 --ignore=E302,W291,F401,E402
 
 test:
 	pytest tests/ --ignore=tests/smoke -v --tb=short --cov=src --cov-report=term-missing

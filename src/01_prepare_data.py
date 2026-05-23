@@ -11,7 +11,9 @@ from sklearn.model_selection import train_test_split
 
 from config import RAW_DATA_PATH, TRAIN_PATH, TEST_PATH, TARGET, RANDOM_STATE, TEST_SIZE, DATA_DIR
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s | DATA | %(message)s", datefmt="%H:%M:%S")
+logging.basicConfig(level=logging.INFO, 
+                    format="%(asctime)s | DATA | %(message)s", 
+                    datefmt="%H:%M:%S")
 log = logging.getLogger(__name__)
 
 
@@ -49,7 +51,8 @@ def prepare() -> tuple[pd.DataFrame, pd.DataFrame]:
     train_df.to_csv(TRAIN_PATH, index=False)
     test_df.to_csv(TEST_PATH, index=False)
     log.info("Dataset total: %d filas x %d columnas", df.shape[0], df.shape[1])
-    log.info("Train: %d | Test: %d | Tasa positiva train: %.3f", len(train_df), len(test_df), train_df[TARGET].mean())
+    log.info("Train: %d | Test: %d | Tasa positiva train: %.3f", 
+             len(train_df), len(test_df), train_df[TARGET].mean())
     return train_df, test_df
 
 

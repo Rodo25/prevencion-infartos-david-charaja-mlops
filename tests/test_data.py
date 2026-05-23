@@ -1,7 +1,6 @@
 """Tests de preparación de datos."""
 import sys
 from pathlib import Path
-
 import pandas as pd
 
 sys.path.insert(0, "src")
@@ -9,7 +8,6 @@ from config import FEATURES, TARGET
 from importlib import import_module
 
 prepare_mod = import_module("01_prepare_data")
-
 
 def test_load_raw_returns_dataframe():
     df = prepare_mod.load_raw(Path("data/dataset_prevencion_infartos.csv"))

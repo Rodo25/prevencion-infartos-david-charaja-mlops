@@ -1,0 +1,15 @@
+artifact_uri: file:///workspaces/prevencion-infartos-david-charaja-mlops/mlruns/606381172542967312/4c7759d2cda247fc975ff29cea4bbd71/artifacts
+end_time: 1779494047394
+entry_point_name: ''
+experiment_id: '606381172542967312'
+lifecycle_stage: active
+run_id: 4c7759d2cda247fc975ff29cea4bbd71
+run_name: random_forest_balanceado
+run_uuid: 4c7759d2cda247fc975ff29cea4bbd71
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1779494039965
+status: 3
+tags: []
+user_id: codespace

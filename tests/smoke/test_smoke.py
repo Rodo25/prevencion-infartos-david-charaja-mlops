@@ -2,7 +2,6 @@
 import json
 import os
 import urllib.request
-
 import pytest
 
 API_URL = os.getenv("API_URL", "http://localhost:8000")

@@ -1,0 +1,15 @@
+{
+  "features": [
+    "Edad",
+    "Flag_hipertension",
+    "Flag_problem_cardiaco",
+    "Promedio_nivel_glucosa",
+    "IMC",
+    "Genero",
+    "Estados_civil",
+    "Tipo_trabajo",
+    "Zona_residencia",
+    "Flag_fumador"
+  ],
+  "target": "Ataque_cardiaco"
+}
