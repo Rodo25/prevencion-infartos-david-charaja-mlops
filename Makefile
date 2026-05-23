@@ -37,6 +37,16 @@ preprod-down:
 preprod-logs:
 	docker compose -f $(COMPOSE_FILE) logs -f
 
+prod-build:
+	docker build -t prevencion-infartos-api:1.0.0 .
+
+prod-up:
+	docker run -d --name prevencion-infartos-api-prod -p 8000:8000 prevencion-infartos-api:1.0.0
+
+prod-down:
+	docker stop prevencion-infartos-api-prod || true
+	docker rm prevencion-infartos-api-prod || true
+
 smoke:
 	pytest tests/smoke/ -v --tb=short
 

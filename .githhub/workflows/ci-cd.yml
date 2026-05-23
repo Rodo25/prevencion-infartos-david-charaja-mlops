@@ -1,0 +1,34 @@
+name: CI/CD — Prevención de Infartos
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+env:
+  PYTHON_VERSION: "3.10"
+
+jobs:
+  lint-test-train:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: "pip"
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+      - name: Linting
+        run: flake8 src/ tests/ api/ --config=setup.cfg
+      - name: Tests
+        run: pytest tests/ --ignore=tests/smoke -v --tb=short
+      - name: Entrenar y validar
+        run: |
+          python src/01_prepare_data.py
+          python src/02_train_model.py
+          python src/03_validate_model.py
+      - name: Build Docker API
+        run: docker build -t prevencion-infartos-api:ci .
