@@ -15,8 +15,7 @@ Proyecto académico de MLOps para entrenar, versionar, desplegar y monitorear un
 ├── Dockerfile                   # Imagen de API
 ├── Dockerfile.trainer           # Imagen de entrenamiento
 ├── docker-compose.preprod.yml   # Stack preproductivo
-├── Makefile                     # Comandos automatizados
-└── .env.preprod                 # Entorno Preproductivo
+└── Makefile                     # Comandos automatizados
 
 ```
 
@@ -38,5 +37,3 @@ El entrenamiento registra:
 - métricas: F1, recall, precision, accuracy, ROC AUC, PR AUC.
 - artefactos: matriz de confusión, reporte de clasificación, modelo serializado.
 - parámetros del modelo y del split.
-
-> Nota metodológica: el dataset está fuertemente desbalanceado; por eso el quality gate prioriza `recall` y `average_precision`.
