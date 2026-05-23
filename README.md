@@ -1,4 +1,4 @@
-# MLOps — Prevención de Infartos
+# MLOps — Prevención de Infartos - Por: David Charaja
 
 Proyecto académico de MLOps para entrenar, versionar, desplegar y monitorear un modelo que predice el riesgo de `Ataque_cardiaco` usando variables sencillas del cliente asegurado.
 
@@ -15,29 +15,15 @@ Proyecto académico de MLOps para entrenar, versionar, desplegar y monitorear un
 ├── Dockerfile                   # Imagen de API
 ├── Dockerfile.trainer           # Imagen de entrenamiento
 ├── docker-compose.preprod.yml   # Stack preproductivo
-└── Makefile                     # Comandos automatizados
+├── Makefile                     # Comandos automatizados
+└── .env.preprod                 # Entorno Preproductivo
+
 ```
-
-## Ejecución local
-
-```bash
-python -m venv .venv
-source .venv/bin/activate        # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-make all
-```
-
-## API local
-
-```bash
-uvicorn api.app:app --host 0.0.0.0 --port 8000 --reload
-```
-
-Swagger: `http://localhost:8000/docs`
 
 ## Preproducción con Docker Compose
 
 ```bash
+make all
 make preprod-up
 make smoke
 ```
